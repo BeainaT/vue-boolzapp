@@ -36,9 +36,9 @@
                     <button><i class="fa-solid fa-magnifying-glass"></i></button><input type="text" placeholder="Cerca o inizia una nuova chat">
                 </div>
                 <div class="people">
-                    <div class="people-box">
+                    <div class="people-box" v-for="contact in contacts">
                         <img src="img/avatar_1.jpg" alt="">
-                        <span class="name">Michele<span class="access">ultimo accesso</span></span>
+                        <span class="name">{{contact.name}}<span class="access">ultimo messaggio inviato</span></span>
                         <span class="hour">12:00</span>
                     </div>
                 </div>
@@ -54,6 +54,8 @@
                         </span>
                 </div>
                 <div class="screen">
+                    <div class="sent"></div>
+                    <div class="received"></div>
                 </div>
                 <div class="send-bar">
                     <button><i class="fa-regular fa-face-smile"></i></button>
