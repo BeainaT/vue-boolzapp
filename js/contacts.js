@@ -164,11 +164,22 @@ const app = new Vue ({
                     }
                 ],
             }
-        ]
+        ],
+        myText: "",
     },
     methods: {
         getActive(index) {
             this.currentIndex = index;
+        },
+        sendMessage() {
+            //set currentDate
+            let myDate = new Date();
+            let now = myDate.toLocaleTimeString();
+            //create an obj to send message
+            let myMessage = {"message" : this.myText, "status" : 'sent', "date" : now};
+            //push obj in array to make it iterable
+            this.contacts[this.currentIndex].messages.push(myMessage);
+            this.myText = "";
         }
     }
 });
