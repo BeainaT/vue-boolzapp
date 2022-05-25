@@ -11,7 +11,19 @@
     --header-col: #E6DFD6;
     --bg-primary: #fff;
     --notice-col: #8EDAFC;
-    --border: #a29d9d;
+    --dark: #a29d9d;
+    --border-col: #F5F5F5;
+    --border-style: 1px solid;
+    --font-basis: 1em;
+    --font-small: 0.5em;
+}
+body {
+    font-family: 'Lato', sans-serif;
+    height: 100vh;
+    background: linear-gradient(var(--bg-up) 0%, var(--bg-up) 20%, var(--bg-down) 20%, var(--bg-down) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /*TYPO*/
 button,
@@ -19,32 +31,31 @@ input {
     border: none;
 }
 input {
-    padding: 0 1em;
-}
-body {
-    font-family: 'Lato', sans-serif;
-    height: 100vh;
-    background: linear-gradient(var(--bg-up) 0%, var(--bg-up) 20%, var(--bg-down) 20%, var(--bg-down) 100%);
-}
-a {
-    color: var(--border);
+    padding: 0 var(--font-basis);
 }
 input:focus {
     outline: none;
 }
-/*COMMONS*/
+i,
+a {
+    color: var(--dark);
+}
 i {
     font-size: 1.2em;
-    color: var(--border);
 }
-.header-box,
-.people-box {
-    padding: 0.5em;
-}
+/*COMMONS*/
 .left-col,
-.rigth-col {
+.right-col,
+.name,
+.screen {
     display: flex;
     flex-direction: column;
+}
+.header-box,
+.notice i,
+.notice > div {
+    display: flex;
+    align-items: center;
 }
 .people,
 .screen {
@@ -52,61 +63,58 @@ i {
 }
 .header-box img,
 .people img,
-.notice i {
-    width: 50px;
-    height: 50px;
+.fa-solid.fa-bell-slash {
+    width: 3.125rem;
+    height: 3.125rem;
     border-radius: 50%;
 }
 .search,
 .send-bar {
-    padding: 0.5em;
+    padding: var(--font-small);
     display: flex;
 }
+.name,
+.people,
+.screen,
 .search input,
 .send-bar input {
     flex-grow: 1;
 }
 .search button,
 .send-bar button {
-    width: 80px;
-    padding: 0.5em 1em;
+    width: 5rem;
+    padding: var(--font-small) var(--font-basis);
     text-align: center;
-}
-span.name,
-.people,
-.screen {
-    flex-grow: 1;
 }
 .people-box:hover {
     background-color: #F4F5F5;
 }
-.sent {
-    background-color: #32f83f;
+.icons i,
+.name {
+    margin: 0 .625rem;
 }
+.sent,
 .received {
-    background-color: var(--bg-primary);
+    padding: var(--font-small) var(--font-basis);
+    width: 40%;
+    border-radius: var(--font-small);
 }
 /*CORP*/
 #container {
     width: 80%;
     height: calc(100vh - 10%);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     background-color: var(--header-col);
 }
 .header-box {
     background-color: var(--header-col);
-    display: flex;
-    align-items: center;
+    padding: var(--font-small);
 }
 .header-box:first-child {
-    border-left: 1px solid var(--bg-down);
+    border-left: var(--border-style) #D6D6D6;
 }
-span.icons i {
-    margin: 0 10px;
+.people-box {
+    padding: var(--font-basis);
 }
 /*left-col*/
 .left-col {
@@ -114,43 +122,60 @@ span.icons i {
 }
 .notice {
     background-color: var(--notice-col);
-    padding: 0.8em 1em;
+    padding: 0.8em var(--font-basis);
 }
 .notice i {
     background-color: var(--bg-primary);
-    display: flex;
     justify-content: center;
-    align-items: center;
     color: var(--notice-col);
     font-size: 1.5em;
 }
 .notice > div {
-    display: flex;
-    align-items: center;
-    gap: 1em;
+    gap: var(--font-basis);
 }
 .search {
-    background-color: #f5f4f4;
+    background-color: #FAFAFA;
 }
 .search button,
-.search input {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--header-col);
-}
+.search input,
 .people {
     background-color: var(--bg-primary);
 }
+.search button,
+.search input {
+    border: var(--border-style) var(--border-col);
+}
 .people-box {
-    border-bottom: 1px solid var(--bg-down);
+    border-bottom: var(--border-style) var(--border-col);
     display: flex;
 }
-/*rigth-col*/
-.rigth-col {
+/*right-col*/
+.right-col {
     width: 65%;
+}
+.access,
+.hour {
+    color: var(--dark);
 }
 .screen {
     background-image: url("../img/mine.jpg");
+    padding: 2em 3em;
+    gap: .625rem;
 }
+.sent {
+    background-color: #D5F9BA;
+    align-self: end;
+}
+
+.received {
+    background-color: var(--bg-primary);
+    align-self: flex-start;
+}
+.hour {
+    text-align: end;
+    font-size: 0.6em;
+}
+/*send-bar*/
 .send-bar {
     background-color: #F3EEEA;
 }
@@ -158,19 +183,10 @@ span.icons i {
     background-color: inherit;
 }
 .send-bar input {
-    height: 50px;
+    height: 3.125rem;
     border-radius: 5px;
 }
 .send-bar i {
-    color: #535151;
+    --dark: #535151;
     font-size: 1.8em;
-}
-span.name {
-    display: flex;
-    flex-direction: column;
-    margin: 0 10px;
-}
-span.access,
-span.hour {
-    color: var(--border);
 }

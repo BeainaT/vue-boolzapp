@@ -1,6 +1,7 @@
 const app = new Vue ({
     el: "#container",
     data: {
+        currentIndex: 0,
         contacts: [
             {
                 name: 'Michele',
@@ -164,6 +165,11 @@ const app = new Vue ({
                 ],
             }
         ]
+    },
+    methods: {
+        getActive(index) {
+            this.currentIndex = index;
+        }
     }
 });
 
