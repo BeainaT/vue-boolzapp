@@ -1,0 +1,16 @@
+/* VARIABLES */
+:root {
+    /*colors*/
+    --bg-up: #009485;
+    --bg-down: #DBDBD2;
+    --header-col: #E6DFD6;
+    --bg-primary: #fff;
+    --notice-col: #8EDAFC;
+    --dark: #a29d9d;
+    --border-col: #F5F5F5;
+    /*border*/
+    --border-style: 1px solid;
+    /*font*/
+    --font-basis: 1em;
+    --font-small: 0.5em;
+}

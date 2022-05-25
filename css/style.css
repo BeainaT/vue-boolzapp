@@ -1,22 +1,7 @@
-/* RESET */
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-/*CUSTOMS*/
-:root {
-    --bg-up: #009485;
-    --bg-down: #DBDBD2;
-    --header-col: #E6DFD6;
-    --bg-primary: #fff;
-    --notice-col: #8EDAFC;
-    --dark: #a29d9d;
-    --border-col: #F5F5F5;
-    --border-style: 1px solid;
-    --font-basis: 1em;
-    --font-small: 0.5em;
-}
+@import "helpers/_variables.css";
+@import "helpers/_reset.css";
+@import "helpers/_typo.css";
+
 body {
     font-family: 'Lato', sans-serif;
     height: 100vh;
@@ -25,24 +10,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-/*TYPO*/
-button,
-input {
-    border: none;
-}
-input {
-    padding: 0 var(--font-basis);
-}
-input:focus {
-    outline: none;
-}
-i,
-a {
-    color: var(--dark);
-}
-i {
-    font-size: 1.2em;
-}
+
 /*COMMONS*/
 .left-col,
 .right-col,

@@ -1,0 +1,18 @@
+/*TYPO*/
+button,
+input {
+    border: none;
+}
+input {
+    padding: 0 var(--font-basis);
+}
+input:focus {
+    outline: none;
+}
+i,
+a {
+    color: var(--dark);
+}
+i {
+    font-size: 1.2em;
+}
