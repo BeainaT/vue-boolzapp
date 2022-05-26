@@ -166,6 +166,7 @@ const app = new Vue ({
             }
         ],
         myText: "",
+        mySearch: "",
     },
     methods: {
         getActive(index) {
@@ -187,8 +188,17 @@ const app = new Vue ({
                     this.contacts[this.currentIndex].messages.push(answer);
                 }, 1000);
             }
-        },   
-  
+        },
+        getContact() {
+            for (let i = 0; i <= this.contacts.length - 1; i++) {                
+                this.currentIndex = i;
+                this.contacts[this.currentIndex].visible = true;
+                if(!this.contacts[this.currentIndex].name.toLowerCase().startsWith(this.mySearch.toLowerCase()) && this.mySearch !== "") {
+                    this.contacts[this.currentIndex].visible = false;                
+                }             
+            }
+            this.mySearch = "";
+        },
     }
 });
 

@@ -44,14 +44,14 @@
             <!--/notice carrel-->
             <!--search bar with text input-->
             <div class="search">
-                <button><i class="fa-solid fa-magnifying-glass"></i></button><input type="text"
-                    placeholder="Cerca o inizia una nuova chat">
+                <button @click="getContact()"><i class="fa-solid fa-magnifying-glass"></i></button><input type="text"
+                    placeholder="Cerca o inizia una nuova chat" v-model="mySearch" @keyup.enter="getContact()">
             </div>
             <!--/search bar with text input-->
             <!--contacts box-->
             <ul class="people">
                 <!--avatar, name and text details for each contact box-->
-                <li class="people-box" v-for="(contact, index) in contacts" @click="getActive(index)">
+                <li class="people-box" v-for="(contact, index) in contacts" @click="getActive(index)" v-if="contact.visible">
                     <img :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
                     <span class="name">{{contact.name}}<span class="access">ultimo messaggio inviato</span></span>
                     <span class="hour">12:00</span>
