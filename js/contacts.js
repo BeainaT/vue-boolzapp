@@ -177,10 +177,18 @@ const app = new Vue ({
             let now = myDate.toLocaleTimeString();
             //create an obj to send message
             let myMessage = {"message" : this.myText, "status" : 'sent', "date" : now};
-            //push obj in array to make it iterable
-            this.contacts[this.currentIndex].messages.push(myMessage);
-            this.myText = "";
-        }
+            if(this.myText !== "") {
+                //push obj in array to make it iterable
+                this.contacts[this.currentIndex].messages.push(myMessage);
+                this.myText = "";
+                //used arrow function to read this scope
+                setTimeout(() => {
+                    let answer = {"message" : 'ok', "status" : 'received', "date" : now};
+                    this.contacts[this.currentIndex].messages.push(answer);
+                }, 1000);
+            }
+        },   
+  
     }
 });
 
