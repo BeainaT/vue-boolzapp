@@ -16,6 +16,8 @@
     <title>Vue Boolzapp</title>
     <!--my css-->
     <link rel="stylesheet" href="css/style.css">
+    <!--luxon library-->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.4.0/build/global/luxon.min.js"></script>
 </head>
 
 <body>
@@ -45,16 +47,19 @@
             <!--search bar with text input-->
             <div class="search">
                 <button @click="getContact()"><i class="fa-solid fa-magnifying-glass"></i></button><input type="text"
-                    placeholder="Cerca o inizia una nuova chat" v-model="mySearch" @keyup.enter="getContact()">
+                    placeholder="Cerca o inizia una nuova chat" v-model="mySearch" @keyup="getContact()"
+                    @keyup.enter="(mySearch = '')">
             </div>
             <!--/search bar with text input-->
             <!--contacts box-->
             <ul class="people">
                 <!--avatar, name and text details for each contact box-->
-                <li class="people-box" v-for="(contact, index) in contacts" @click="getActive(index)" v-if="contact.visible">
+                <li class="people-box" v-for="(contact, index) in contacts" @click="currentIndex = index" v-if="contact.visible">
                     <img :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
-                    <span class="name">{{contact.name}}<span class="access">ultimo messaggio inviato</span></span>
-                    <span class="hour">12:00</span>
+                    <span class="name">{{contact.name}}
+                        <span class="access">{{getLastMessage(contact)}}</span>
+                    </span>
+                    <span class="hour">{{getLastHour(contact)}}</span>                    
                 </li>
                 <!--/avatar, name and text details for each contact box-->
             </ul>
@@ -65,7 +70,7 @@
             <!--right header box contains avatar, user name and icons-->
             <div class="header-box">
                 <img :src="'img/avatar' + contacts[currentIndex].avatar + '.jpg'" alt="">
-                <span class="name">{{contacts[currentIndex].name}}<span class="access">ultimo accesso</span></span>
+                <span class="name">{{contacts[currentIndex].name}}<span class="access">Ultimo accesso</span></span>
                 <span class="icons">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <i class="fa-solid fa-paperclip"></i>
@@ -78,10 +83,11 @@
                 <!--displayed text details for each contact selected-->
                 <div v-for="elm in contacts[currentIndex].messages" :class="{sent : elm.status === 'sent', received : elm.status === 'received'}">
                     {{elm.message}}
-                    <div class="hour"><small>{{elm.date}}</small></div>
+                    <div class="hour"><small>{{getHourFormat(elm)}}</small></div>
+                    <div class="menu"><span>Message info</span><br><span>Delete message</span></div>
                 </div>
-                
-            <!--/messages window-->
+
+                <!--/messages window-->
             </div>
             <!--send-bar with buttons and text input-->
             <div class="send-bar">

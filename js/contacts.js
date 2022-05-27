@@ -169,36 +169,50 @@ const app = new Vue ({
         mySearch: "",
     },
     methods: {
-        getActive(index) {
-            this.currentIndex = index;
-        },
         sendMessage() {
-            //set currentDate
-            let myDate = new Date();
-            let now = myDate.toLocaleTimeString();
-            //create an obj to send message
-            let myMessage = {"message" : this.myText, "status" : 'sent', "date" : now};
-            if(this.myText !== "") {
+            //set currentDate with luxon library
+            let myDate = luxon.DateTime;
+            //create an obj to send message --notice that the date now will be formatted in HH.mm only
+            let myMessage = {"message" : this.myText, "status" : 'sent', "date" : myDate.now().toFormat("dd/MM/yyyy HH:mm:ss")};
+            if(this.myText !== "" && this.myText.charAt(0) !== " ") {
                 //push obj in array to make it iterable
                 this.contacts[this.currentIndex].messages.push(myMessage);
                 this.myText = "";
                 //used arrow function to read this scope
                 setTimeout(() => {
-                    let answer = {"message" : 'ok', "status" : 'received', "date" : now};
+                    let answer = {"message" : 'ok', "status" : 'received', "date" : myDate.now().toFormat("dd/MM/yyyy HH:mm:ss")};
                     this.contacts[this.currentIndex].messages.push(answer);
                 }, 1000);
             }
         },
-        getContact() {
-            for (let i = 0; i <= this.contacts.length - 1; i++) {                
+        getContact() {            
+            for (let i = 0; i < this.contacts.length; i++) {
                 this.currentIndex = i;
                 this.contacts[this.currentIndex].visible = true;
                 if(!this.contacts[this.currentIndex].name.toLowerCase().startsWith(this.mySearch.toLowerCase()) && this.mySearch !== "") {
-                    this.contacts[this.currentIndex].visible = false;                
-                }             
+                    this.contacts[this.currentIndex].visible = false;
+                }
             }
-            this.mySearch = "";
         },
+        //function that returns the last hour in messages array
+        getLastHour(contact) {
+            //assign luxon.DateTime value to my const 
+            let DateHour = luxon.DateTime;
+            //set const as last messages element
+            const lastMsgTime = contact.messages[contact.messages.length - 1];
+            //return another format of lastMsgTime in date
+            return DateHour.fromFormat(lastMsgTime.date, "dd/MM/yyyy HH:mm:ss").toFormat("HH:mm");
+        },
+        //function that returns the last message in messages array
+        getLastMessage(contact) {
+            const lastMsg = contact.messages[contact.messages.length - 1].message;
+            return lastMsg;
+        },
+        //function that returns the last msg hour for each messages array
+        getHourFormat(elm) {
+            let DateHour = luxon.DateTime;
+            return DateHour.fromFormat(elm.date, "dd/MM/yyyy HH:mm:ss").toFormat("HH:mm");
+        }
     }
 });
 
