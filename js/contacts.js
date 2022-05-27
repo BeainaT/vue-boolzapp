@@ -167,6 +167,7 @@ const app = new Vue ({
         ],
         myText: "",
         mySearch: "",
+        msgMenu: false,
     },
     methods: {
         sendMessage() {
@@ -174,25 +175,25 @@ const app = new Vue ({
             let myDate = luxon.DateTime;
             //create an obj to send message --notice that the date now will be formatted in HH.mm only
             let myMessage = {"message" : this.myText, "status" : 'sent', "date" : myDate.now().toFormat("dd/MM/yyyy HH:mm:ss")};
+            let indexTiming = this.currentIndex;
             if(this.myText !== "" && this.myText.charAt(0) !== " ") {
                 //push obj in array to make it iterable
-                this.contacts[this.currentIndex].messages.push(myMessage);
+                this.contacts[indexTiming].messages.push(myMessage);
                 this.myText = "";
                 //used arrow function to read this scope
                 setTimeout(() => {
                     let answer = {"message" : 'ok', "status" : 'received', "date" : myDate.now().toFormat("dd/MM/yyyy HH:mm:ss")};
-                    this.contacts[this.currentIndex].messages.push(answer);
+                    this.contacts[indexTiming].messages.push(answer);
                 }, 1000);
             }
         },
-        getContact() {            
-            for (let i = 0; i < this.contacts.length; i++) {
-                this.currentIndex = i;
-                this.contacts[this.currentIndex].visible = true;
-                if(!this.contacts[this.currentIndex].name.toLowerCase().startsWith(this.mySearch.toLowerCase()) && this.mySearch !== "") {
-                    this.contacts[this.currentIndex].visible = false;
-                }
-            }
+        getContact() {
+            this.contacts.forEach(contact => {
+                contact.visible = true;
+                if(!contact.name.toLowerCase().startsWith(this.mySearch.toLowerCase()) && this.mySearch !== "") {
+                    contact.visible = false;
+                }                
+            });
         },
         //function that returns the last hour in messages array
         getLastHour(contact) {
@@ -212,6 +213,9 @@ const app = new Vue ({
         getHourFormat(elm) {
             let DateHour = luxon.DateTime;
             return DateHour.fromFormat(elm.date, "dd/MM/yyyy HH:mm:ss").toFormat("HH:mm");
+        },
+        getMsgMenu() {
+            this.msgMenu = !this.msgMenu;
         }
     }
 });
