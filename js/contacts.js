@@ -214,9 +214,9 @@ const app = new Vue ({
             let DateHour = luxon.DateTime;
             return DateHour.fromFormat(elm.date, "dd/MM/yyyy HH:mm:ss").toFormat("HH:mm");
         },
-        getMsgMenu() {
-            this.msgMenu = !this.msgMenu;
-        }
+        toggleMenu() {
+            this.msgMenu = !this.msgMenu
+        },
     }
 });
 

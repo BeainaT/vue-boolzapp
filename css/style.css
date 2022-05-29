@@ -167,5 +167,4 @@ body {
     right: var(--font-small);
     padding: var(--font-basis);
     z-index: 10;
-    display: none;
 }

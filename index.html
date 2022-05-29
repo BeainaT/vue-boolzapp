@@ -69,8 +69,10 @@
         <div class="right-col">
             <!--right header box contains avatar, user name and icons-->
             <div class="header-box">
-                <img :src="'img/avatar' + contacts[currentIndex].avatar + '.jpg'" alt="">
-                <span class="name">{{contacts[currentIndex].name}}<span class="access">Ultimo accesso</span></span>
+                <img :src="'img/avatar' + contacts[currentIndex].avatar + '.jpg'" :alt="contacts[currentIndex].name">
+                <span class="name">{{contacts[currentIndex].name}}
+                    <span class="access">Ultimo accesso</span>
+                </span>
                 <span class="icons">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <i class="fa-solid fa-paperclip"></i>
@@ -81,10 +83,10 @@
             <!--messages window-->
             <div class="screen">
                 <!--displayed text details for each contact selected-->
-                <div v-for="elm in contacts[currentIndex].messages" :class="{sent : elm.status === 'sent', received : elm.status === 'received'}">
+                <div v-for="elm in contacts[currentIndex].messages" :class="{sent : elm.status === 'sent', received : elm.status === 'received'}" @click="toggleMenu()">
                     {{elm.message}}
                     <div class="hour"><small>{{getHourFormat(elm)}}</small></div>
-                    <div class="menu"><span>Message info</span><br><span>Delete message</span></div>
+                    <div :class="{menu : msgMenu}" v-show="msgMenu"><span>Message info</span><br><span>Delete message</span></div>
                 </div>
 
                 <!--/messages window-->
